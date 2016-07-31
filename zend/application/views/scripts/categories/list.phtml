@@ -1,0 +1,53 @@
+<head>  
+    <style>
+
+            .fontSize
+            {
+                font-family: fantasy;
+                font-size: 30px;
+            }
+            
+    </style>  
+    
+    
+<title>Categories</title>
+</head>
+<div style="height:100px ;display:block;"> </div> 
+<div class="jumbotron col-sm-1-offset-1 "style="  width: 1100px;  margin :0 auto ; padding: 15px 15px 15px 15px; background-color:rgba(102,102,255,0.5);">
+
+ <?php
+       for($j = 0; $j<count($this->categories); $j++){ ?>
+
+    <table class="table table-hover">
+    <tr>
+       
+        <td  class="info" width='150px' height='70px'>
+            <img src="../category_images/<?php echo $this->categories[$j]['image'];?>" class="img-circle"  width="140" height="60px"/>
+            
+        </td>
+        
+        <td  class="danger" >
+            <a  style="margin-left: 25px; margin-top: 5px;" class="fontSize" href="<?php echo $this->baseUrl()?>/forums/list/id/<?php echo $this->categories[$j]['id'];?>" > <?php echo $this->categories[$j]["name"];?> </a>
+            
+        </td>
+        
+        
+ <td class="success" width='150px'>    
+     <a  style="margin-left: 25px; width: 80px;margin-top: 5px;" href="<?php echo $this->baseUrl()?>/categories/edit/id/<?php echo $this->categories[$j]['id'];?>/e/-2" class="btn btn-success btn-lg" > Edit </a>
+
+</td>
+
+        <td class="warning" width='150px' >    
+<a style="margin-left: 25px; margin-top: 5px;" href="<?php echo $this->baseUrl()?>/categories/delete/id/<?php echo $this->categories[$j]['id'];?>/catImg/<?php echo $this->categories[$j]['image'];?>/d/-2" class="btn btn-danger btn-lg" > Delete </a>
+
+</td>
+
+
+    </tr>
+    </table>
+
+    <?php
+
+}
+?>
+</div>

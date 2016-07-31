@@ -1,0 +1,23 @@
+<head>
+<title>Register</title>
+</head>
+
+<div id="view-content">
+    
+    
+     <div class="jumbotron col-sm-1-offset-1 "style="margin-top: 10px;  width: 400px;  margin-left: 50px; background-color:rgba(102,102,255,0.4);">       
+
+    <?php
+    if (isset($this->errorMessage)) {
+
+        echo $this->errorMessage;
+    }
+    ?>
+        
+    <?php
+    
+    echo $this->register;
+    ?>
+    </div>
+
+</div>

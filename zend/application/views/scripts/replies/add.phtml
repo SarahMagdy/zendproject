@@ -1,0 +1,19 @@
+<?php
+    $reply = array();
+    $reply['form'] = $this->form->__toString();
+    
+    if(!is_null($this->reply)){
+        $reply['reply'] = $this->reply[0];
+        $user_model = new Application_Model_Users();
+        $user = $user_model->getUserById($this->reply[0]["user_id"]);
+        $reply['user'] = $user[0];
+      
+    }
+    
+    
+    
+    $reply['info'] = array(); 
+    
+    echo json_encode($reply);
+    
+?>

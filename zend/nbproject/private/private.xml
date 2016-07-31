@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/var/www/html/zend_project2/application/views/scripts/threads/list.phtml</file>
+            <file>file:/var/www/html/zend_project2/application/controllers/ForumsController.php</file>
+            <file>file:/var/www/html/zend_project2/application/views/scripts/forums/add.phtml</file>
+            <file>file:/var/www/html/zend_project2/application/controllers/CategoriesController.php</file>
+            <file>file:/var/www/html/zend_project2/application/controllers/UsersController.php</file>
+            <file>file:/var/www/html/zend_project2/application/layouts/scripts/layout.phtml</file>
+            <file>file:/var/www/html/zend_project2/application/views/scripts/users/userprofile.phtml</file>
+            <file>file:/var/www/html/zend_project2/application/views/scripts/categories/main.phtml</file>
+            <file>file:/var/www/html/zend_project2/application/views/scripts/threads/view-thread.phtml</file>
+            <file>file:/var/www/html/zend_project2/application/views/scripts/categories/add.phtml</file>
+            <file>file:/var/www/html/zend_project2/application/views/scripts/users/profile.phtml</file>
+        </group>
+    </open-files>
+</project-private>

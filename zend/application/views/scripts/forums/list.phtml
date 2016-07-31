@@ -1,0 +1,70 @@
+<head>
+    <title><?php echo $this->cat[0]['name'];?></title>
+    <style>
+        p{
+           font-family: fantasy;
+           color: #843534;
+           font-size: 35px;
+           text-align: center;
+        }
+     </style>
+</head>
+    <div style="height:100px ;display:block;"> </div>
+<table class="table">
+    
+       
+       <tr >
+           <td width='190px' height='70px' class="danger">
+               <p style=" margin-top: 10px;"> <?php echo $this->cat[0]['name'];?> </p>
+       </td>
+     
+        <td  width='600px' height='70px' class="danger">
+            <img style=" margin-left: 130px; margin-top: 0px;" src="../../../category_images/<?php echo $this->cat[0]['image'];?>" class="img-rounded"  width="500" height="70px"/>
+            
+        </td>
+
+       </tr>
+</table>
+
+<br>
+<div class="jumbotron col-sm-1-offset-1 "style="  width: 1025px;  margin :0 auto ; padding: 10px 10px 10px 10px; background-color:rgba(102,102,255,0.5);">
+
+       <?php
+       
+       
+for($i = 0; $i<count($this->forums); $i++){
+     
+?>
+
+    <table  style="margin-bottom:0px;"class="table table-hover">
+    <tr>
+        <td  class="info" width="180px" height="70px">
+            <img width="150px" height="50px" src="../../../forum_images/<?php echo $this->forums[$i]['image'];?>" class="img-circle"/>
+            
+        </td>
+   <td class="info">
+<a style="margin-left: 25px; margin-top: 5px; font-size: 25px;" href="<?php echo $this->baseUrl()?>/threads/list/id/<?php echo $this->forums[$i]['id'];?>" class="text-danger"> <?php echo $this->forums[$i]["name"];?></a>
+    </td>
+<?php if($this->admin==1) {?>  
+ <td class="success" width='150px'>    
+<a style="margin-left: 25px; margin-top: 5px; width: 80px;" href="<?php echo $this->baseUrl()?>/forums/edit/id/<?php echo $this->forums[$i]['id'];?>/catgId/<?php echo $this->forums[$i]['cat_id']?>/c/2" class="btn btn-success btn-lg" > Edit </a>
+
+</td>
+
+        <td class="warning" width='150px' >    
+<a style="margin-left: 25px; margin-top: 5px;" href="<?php echo $this->baseUrl()?>/forums/delete/id/<?php echo $this->forums[$i]['id'];?>/img/<?php echo $this->forums[$i]['image'];?>/catgId/<?php echo $this->forums[$i]['cat_id']?>/c/2" class="btn btn-danger btn-lg" > Delete </a>
+
+</td>
+
+        <td class="active" width='150px' >    
+<a style="margin-left: 25px; margin-top: 5px; width: 80px; " href="<?php echo $this->baseUrl()?>/forums/lock/id/<?php echo $this->forums[$i]['id'];?>/lock/<?php echo $this->forums[$i]['is_locked'];?>/catgId/<?php echo $this->forums[$i]['cat_id']?>" class="btn btn-warning btn-lg" > <?php if( $this->forums[$i]['is_locked'] == 0) echo "Lock"; else{ echo "Unlock";}?> </a>
+
+</td>
+<?php }?>
+    </tr>
+    </table>
+<?php
+
+}
+?>
+</div>

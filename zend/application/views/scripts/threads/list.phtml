@@ -1,0 +1,188 @@
+<html>
+    <header>
+        <title><?php echo $this->forum[0]['name'];?></title>
+        <style>
+
+            #but{
+                margin-left: 800px; 
+                border-top-width: 4px;
+                margin-top: 80px;
+            }
+            
+             p{
+           font-family: fantasy;
+           color: #843534;
+           font-size: 35px;
+           text-align: center;
+        }
+
+
+        </style>
+
+    </header>
+     <div style="height:100px ;display:block;"> </div>
+     <table class="table">
+    
+       
+       <tr >
+           <td width='190px' height='70px' class="danger">
+               <p style=" margin-top: 10px;"> <?php echo $this->forum[0]['name'];?> </p>
+       </td>
+     
+        <td  width='600px' height='70px' class="danger">
+            <img style=" margin-left: 130px; margin-top: 0px;" src="../../../forum_images/<?php echo $this->forum[0]['image'];?>" class="img-rounded"  width="500" height="70px"/>
+            
+        </td>
+
+       </tr>
+</table>
+
+<br>
+<div class="jumbotron col-sm-1-offset-1 "style="  width: 1025px;  margin :0 auto ; padding: 10px 10px 10px 10px; background-color:rgba(102,102,255,0.5);">
+<div class="container-fluid">
+    <table  style="margin-bottom:0px;"class="table table-hover">
+        <?php
+        $sticky = -1;
+        for ($i = 0; $i < count($this->threads); $i++) {
+            if ($this->threads[$i]['is_sticky'] == 1) {
+                $sticky = $i;
+                ?>
+                <tr>
+                    <td  class="info" width="180px" height="70px">
+                        <img src="../../../thread_images/<?php echo $this->threads[$i]['th_image']; ?>" class="img-circle"  width="150px" height="50px"/>
+
+                    </td>
+
+                    <td class="info">
+                        <a style="margin-left: 25px; margin-top: 5px; font-size: 25px;" href="<?php echo $this->baseUrl() ?>/threads/view-thread/id/<?php echo $this->threads[$i]['id']; ?>" class="text-danger"> <?php echo $this->threads[$i]["title"]; ?></a>
+                    </td>
+                    <?php
+                    if ($this->is_admin == 1 || $this->user_id == $this->threads[$i]['user_id']) {
+                        ?>
+                        <td class="success" width='150px'>    
+                            <a style="margin-left: 15px; margin-top: 5px; width: 80px;" href="<?php echo $this->baseUrl() ?>/threads/edit/id/<?php echo $this->threads[$i]['id']; ?>" class="btn btn-success btn-lg" > Edit </a>
+
+                        </td>
+
+                        <td class="danger" width='150px' >    
+                            <a style="margin-left: 15px; margin-top: 5px;" href="<?php echo $this->baseUrl() ?>/threads/delete/id/<?php echo $this->threads[$i]['id']; ?>/forumId/<?php echo $this->threads[$i]['forum_id']; ?>/img/<?php echo $this->threads[$i]['image']; ?>" class="btn btn-danger btn-lg" > Delete </a>
+
+                        </td>
+                             <?php
+                    }
+                    else { ?>
+                                <td class="info" width='150px'>    
+
+                        </td>
+
+                        <td class="info" width='150px' >    
+
+                        </td>
+                   <?php }
+                    if ($this->is_admin == 1) {
+                        ?>
+                        <td class="active" width='150px' >    
+                            <a style="margin-left: 20px; margin-top: 5px; width: 80px; " href="<?php echo $this->baseUrl() ?>/threads/lock/id/<?php echo $this->threads[$i]['id']; ?>/lock/<?php echo $this->threads[$i]['is_locked']; ?>/formId/<?php echo $this->threads[$i]['forum_id'] ?>" class="btn btn-info btn-lg" > <?php
+                                if ($this->threads[$i]['is_locked'] == 0)
+                                    echo "Lock";
+                                else {
+                                    echo "Unlock";
+                                }
+                                ?> </a>
+
+                        </td>
+
+                        <td class="warning" width='150px' >    
+                            <a style="margin-left: 25px; margin-top: 5px; width: 80px;" href="<?php echo $this->baseUrl() ?>/threads/sticky/id/<?php echo $this->threads[$i]['id']; ?> /formId/<?php echo $this->threads[$i]['forum_id'] ?>" class="btn btn-warning btn-lg" > <?php
+                                if ($this->threads[$i]['is_sticky'] == 0)
+                                    echo "Not Sticky";
+                                else {
+                                    echo "Sticky";
+                                }
+                                ?> </a>
+
+                        </td>
+                        <?php
+                    }
+                    ?> 
+                </tr>
+
+                <?php
+            }
+        }
+        ?> 
+
+        <?php
+        for ($i = 0; $i < count($this->threads); $i++) {
+            if ($i != $sticky) {
+                ?>
+                <tr>
+                    <td  class="info" width='120px' height='60px'>
+                        <img src="../../../thread_images/<?php echo $this->threads[$i]['th_image']; ?>" class="img-circle"  width="150" height="50px"/>
+
+                    </td>
+                  
+                    <td class="info">
+                        <a style="margin-left: 25px; margin-top: 5px; font-size: 25px;" href="<?php echo $this->baseUrl() ?>/threads/view-thread/id/<?php echo $this->threads[$i]['id']; ?>" class="text-danger"> <?php echo $this->threads[$i]["title"]; ?></a>
+                    </td>
+                    <?php
+                    if ($this->is_admin == 1 || $this->user_id == $this->threads[$i]['user_id']) {
+                        ?>
+                       <td class="success" width='150px'>    
+                            <a style="margin-left: 15px; margin-top: 5px; width: 80px;" href="<?php echo $this->baseUrl() ?>/threads/edit/id/<?php echo $this->threads[$i]['id']; ?>" class="btn btn-success btn-lg" > Edit </a>
+
+                        </td>
+
+                        <td class="danger" width='150px' >    
+                            <a style="margin-left: 15px; margin-top: 5px;" href="<?php echo $this->baseUrl() ?>/threads/delete/id/<?php echo $this->threads[$i]['id']; ?>/forumId/<?php echo $this->threads[$i]['forum_id']; ?>/img/<?php echo $this->threads[$i]['image']; ?>" class="btn btn-danger btn-lg" > Delete </a>
+
+                        </td>
+                        <?php
+                    }
+                    else { ?>
+                                <td class="info" width='150px'>    
+
+                        </td>
+
+                        <td class="info" width='150px' >    
+
+                        </td>
+                   <?php }
+                    if ($this->is_admin == 1) {
+                        ?>
+                        <td class="active" width='150px' >    
+                            <a style="margin-left: 20px; margin-top: 5px; width: 80px; " href="<?php echo $this->baseUrl() ?>/threads/lock/id/<?php echo $this->threads[$i]['id']; ?>/lock/<?php echo $this->threads[$i]['is_locked'] ?>/formId/<?php echo $this->threads[$i]['forum_id'] ?>" class="btn btn-info btn-lg" > <?php
+                                if ($this->threads[$i]['is_locked'] == 0)
+                                    echo "Lock";
+                                else {
+                                    echo "Unlock";
+                                }
+                                ?> </a>
+
+                        </td>
+
+                         <td class="warning" width='150px' >    
+                            <a style="margin-left: 10px; margin-top: 5px; width: 110px;" href="<?php echo $this->baseUrl() ?>/threads/sticky/id/<?php echo $this->threads[$i]['id']; ?> /formId/<?php echo $this->threads[$i]['forum_id'] ?>" class="btn btn-warning btn-lg" > <?php
+                                if ($this->threads[$i]['is_sticky'] == 0)
+                                    echo "Not Sticky";
+                                else {
+                                    echo "Sticky";
+                                }
+                                ?> </a>
+
+                        </td>
+                        <?php
+                    }
+                    ?>
+                </tr>
+                <?php
+            }
+        }
+        ?>
+                
+    </table>
+</div>
+    <?php if ( $this->forum[0]['is_locked'] == 0 && $this->user_id != -1 && $this->is_banned == 0) { ?>
+    <a id="but" href="<?php echo $this->baseUrl().'/threads/add-thread/forum_id/'.$this->forum_id; ?>" class="btn btn-primary btn-lg" >Add Thread</a>
+    <?php } ?>
+</div>

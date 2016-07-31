@@ -1,0 +1,18 @@
+<?php
+    $reply = array();
+    $reply['form'] = $this->form->__toString();
+    
+    if(!is_null($this->reply)){
+        $reply['reply'] = $this->reply[0];
+    }
+
+    if(!is_null($this->data)){
+        $reply['data'] = $this->data;
+    }
+    
+    
+    $reply['info'] = array(); 
+    
+    echo json_encode($reply);
+    
+?>

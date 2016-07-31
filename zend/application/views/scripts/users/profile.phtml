@@ -1,0 +1,110 @@
+<head>  
+    <title>My Profile <?php echo $this->profile['name']; ?> </title>
+    <style>
+        #but{
+                margin-left: 580px; 
+                border-top-width: 4px; 
+                margin-top: 20px;
+               
+            }
+            .fontSize
+            {
+                font-family: fantasy;
+                font-size: 30px;
+            }
+    </style>
+
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $("#myNav").affix({
+
+            offset: { 
+
+                top: 195 
+
+            }
+
+        });
+
+    });
+
+    </script>
+
+
+</head>
+<div class="form-group">
+        <div class="jumbotron col-sm-1-offset-1 "style="margin-top: 30px; height:680px ; width: 800px;  margin-left: 20px; background-color:rgba(102,102,255,0.4);">
+
+            <h2 style="margin-top: 10px;  font-family: fantasy;" class="nav nav-tabs nav-stacked" data-spy="affix">Profile Informations</h2>
+            <br> <br> <br> 
+
+<img src="../profile_images/<?php echo $this->profile['image']; ?>" class="img-circle" width="200px" height="70px"/>
+<br> <br>
+<table class="table table-hover">
+    <tr class="active" height="60px">
+        <td width="350px">
+            <div class="fontSize"> Name </div>
+        </td>
+        
+        <td>
+            <div class="fontSize"> <?php echo $this->profile['name']; ?> </div>
+        </td>
+    </tr>
+    
+      <tr class="info">
+        <td>
+            <div class="fontSize"> Email </div>
+        </td>
+        
+        <td>
+            <div class="fontSize"> <?php echo $this->profile['email']; ?> </div>
+        </td>
+    </tr>
+    
+    <tr class="active">
+        <td>
+            <div class="fontSize"> Country </div>
+        </td>
+        
+        <td>
+            <div class="fontSize"> <?php echo $this->profile['country']; ?> </div>
+        </td>
+    </tr>
+    
+    <tr class="info">
+        <td>
+            <div class="fontSize"> Gender </div>
+        </td>
+        
+        <td>
+            <div class="fontSize"> <?php echo $this->profile['gender']; ?> </div>
+        </td>
+    </tr>
+    
+    
+      <tr class="active">
+        <td>
+            <div class="fontSize"> State </div>
+        </td>
+        
+        <td>
+            <div class="fontSize"> <?php if($this->profile['is_banned'] == 1) echo 'Banned'; else echo 'Not Banned'; ?> </div>
+        </td>
+    </tr>
+    
+    <tr class="info">
+        <td>
+            <div class="fontSize"> Signature Image </div>
+        </td>
+        
+        <td>
+            <div> <img src="../signture_images/<?php echo $this->profile['signature']; ?>" class="img-circle" width="200px" height="60px"/> </div>
+        </td>
+    </tr>
+    
+</table>
+
+
+<a id="but" href="<?php echo $this->baseUrl() ?>/users/edit/admin/-1" class="btn btn-primary btn-lg" > Edit </a>

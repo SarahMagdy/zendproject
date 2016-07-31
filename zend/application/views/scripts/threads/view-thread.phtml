@@ -1,0 +1,333 @@
+<head>
+     <title><?php echo $this->thread ["title"]; ?> </title>
+    <style>
+        .container1{
+            max-width: 700px;
+            margin: 0 auto;
+            font-family: "Times New Roman", Times, serif;
+            font-style: oblique;
+        }
+        .container_thread{
+            max-width: 700px;
+            margin: 0 auto;
+            font-family: "Times New Roman", Times, serif;
+            font-style: oblique;
+        }
+
+        img#pic{
+            width: 70px;
+            height: 70px;
+            border-style: solid;
+            border-width: 1px;
+        }
+        td{
+            padding : 15px 15px 15px 15px !important;
+        }
+        .profile_pic{
+            float: left;
+            margin-right: 20px;
+        }
+        .profile_info{
+            width: 100px;
+            margin-right: 20px;
+            margin-top: 15px;
+            display: inline;
+            font-size: 20px;
+        }
+        .body{
+
+            margin-left: 95px;
+            max-width: 600px;
+            word-wrap:break-word;
+            font-size: 20px;
+        }
+        button{
+            margin-left: 100px;
+        }
+        .date{
+            float: right;
+        }
+        .title{
+            text-align: center;
+            font-size: 30px;
+             color: red;
+        }
+        .th_image{            
+            width: 300px;
+            hieght:300px;
+        }
+        .th_img_div{
+            margin: 0 auto;
+            width: 300px;
+            hieght:300px;
+            margin-top: 15px;
+        }
+        .signature{
+            margin: 0 auto;
+            width: 600px;
+        }
+        .sig_img{
+            width: 200px;
+            hieght:200px;
+        }
+        .separator{
+            width: 600px;
+        }
+        .sig_div{
+            margin: 0 auto;
+            width: 200px;
+            hieght:200px;
+        }
+    </style>
+</head>
+<br/><br/><br/><br/>
+<div id="view-content">
+    <div class="container_thread">
+        <table class="table table-striped">
+            <tr>
+                <td  class="danger"><?php
+                    $user_model = new Application_Model_Users();
+                    $user = $user_model->getUserById($this->thread ["user_id"]);
+                    echo "<div class='profile_pic'><img id='pic' src='" . $this->baseUrl() . "/profile_images/{$user[0]['image']}'></img></div>";
+                    echo "<div class='profile_info'><a href='" .$this->baseUrl()."/users/userprofile/id/{$user[0]['id']}'><b>" . $user[0]['name'] . "</b></a><br>" . $user[0]['country'] . "</div>";
+                    echo "<div class='date'>" . $this->thread ['date'] . "</div>";
+                    ?> </td>
+            </tr>
+            <tr>
+                <td class="warning"><?php
+                    echo "<div class='title'><b>" . $this->thread ["title"] . "</b></div><div class='body'>" . $this->thread ["body"] . " </div>";
+                    if ($this->thread ["image"] != NULL) {
+                        echo "<div class='th_img_div'><img class='th_image' src='" . $this->baseUrl() . "/thread_images/{$this->thread ["image"]}'></img></div>";
+                    }
+                    echo "<br/><div class='signature'><img class='separator' src='" . $this->baseUrl()
+                    . "/signture_images/separator.gif'></img></div><br/><br/><div class='sig_div'><img class='sig_img' src='" . $this->baseUrl() . "/signture_images/{$user[0]['signature']}'></img></div>";
+                    if($this -> is_admin == 1 || $this -> user_id == $this->thread ["user_id"]){
+                        echo "<a href='{$this->baseUrl()}/threads/edit/id/{$this->thread ['id']}' class='btn btn-success'>Edit</a>&nbsp &nbsp "
+                        . "<a href='{$this->baseUrl()}/threads/delete/id/{$this->thread ['id']}/forumId/{$this->thread ['forum_id']}' class='btn btn-danger'>Delete</a> </div>";
+                    }
+                    ?> </td>
+            </tr>
+        </table> 
+    </div>
+    <div class="container1">
+        <table class="table table-striped" style="display:none">
+            <tr>
+                <td  class="info"><?php
+                    echo "<div class = 'profile_pic'><img id='pic' src =''></img></div>";
+                    echo "<div class = 'profile_info'></div>";
+                    echo "<div class='date'></div>";
+                    echo "<br><br><div class = 'body'><span class='body_text'></span><br/></div>";
+                    echo "<div class='th_img_div'><img class='th_image' src=''></img></div>";
+                    echo "<br/><div class='signature'><img class='separator' src='" . $this->baseUrl() . "/signture_images/separator.gif'></img></div><br/><br/><div class='sig_div'><img class='sig_img' src=''></img></div>";
+
+                    echo "<a href ='javascript:;' class='btn btn-success' id='edit-reply'>Edit</a>&nbsp &nbsp "
+                    . "<a href ='javascript:;' class='btn btn-danger' id='delete-reply'>Delete</a></div>";
+                    ?> </td>
+            </tr>
+        </table>
+        <?php
+        foreach ($this->replies as $reply) {
+            ?>
+
+            <table class="table table-striped" id="reply_<?php echo $reply['id']; ?>">
+                <tr>
+                    <td  class="info"><?php
+                        $user_model = new Application_Model_Users();
+                        $user = $user_model->getUserById($reply ["user_id"]);
+                        echo "<div class = 'profile_pic'><img id='pic' src = '" . $this->baseUrl() . "/profile_images/{$user[0]['image']}'></img></div>";
+                        echo "<div class = 'profile_info'><a href='" .$this->baseUrl()."/users/userprofile/id/{$user[0]['id']}'><b>" . $user[0]['name'] . "</b></a><br>" . $user[0]['country'] . "</div>";
+                        echo "<div class='date'>" . $reply ['date'] . "</div>";
+                        echo "<br><br><div class = 'body'><span class='body_text'>" . $reply ['body'] . "</span><br/></div>";
+                        if ($reply ["image"] != NULL) {
+                            echo "<div class='th_img_div'><img class='th_image' src='" . $this->baseUrl() . "/reply_images/{$reply ["image"]}'></img></div>";
+                        }
+                        echo "<br/><div class='signature'><img class='separator' src='" . $this->baseUrl()
+                        . "/signture_images/separator.gif'></img></div><br/><br/><div class='sig_div'><img class='sig_img' src='" . $this->baseUrl() . "/signture_images/{$user[0]['signature']}'></img></div>";
+                        if($this -> is_admin == 1 || ($this -> user_id == $reply ["user_id"] && $this -> is_banned == 0)){
+                            echo "<a href ='javascript:;' onclick='editReply({$reply ['id']})' id='edit-reply' class='btn btn-success'>Edit</a>&nbsp &nbsp "
+                            . "<a href ='javascript:;' onclick='deleteReply({$reply ['id']})' class='btn btn-danger' id='delete-reply'>Delete</a>"
+                            . "</div>";
+                        }
+                        ?> </td>
+                </tr>
+            </table>
+
+            <?php
+        }
+        ?>
+
+        <div id="addReplayForm"></div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    
+    function addEmotions(){
+        $("#view-content").html($("#view-content").html().replace(/:\)/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/smile.gif'>"));
+        $("#view-content").html($("#view-content").html().replace(/:D/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/bigsmile.gif'>>"));
+        $("#view-content").html($("#view-content").html().replace( /:\(/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/sadsmile.gif'>"));
+        $("#view-content").html($("#view-content").html().replace(/:'\(/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/crying.gif'>"));
+        $("#view-content").html($("#view-content").html().replace(/:p/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/tongueout.gif'>"));
+        $("#view-content").html($("#view-content").html().replace( /;\)/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/wink.gif'>"));
+        $("#view-content").html($("#view-content").html().replace(/<3/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/heart.gif'"));
+        $("#view-content").html($("#view-content").html().replace(/:\*/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/kiss.gif'>"));
+        $("#view-content").html($("#view-content").html().replace(/3\)/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/devil.gif'>"));
+        $("#view-content").html($("#view-content").html().replace(/8-\)/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/cool.gif'>"));
+        $("#view-content").html($("#view-content").html().replace(/:o/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/surprised.gif'>"));
+    }
+    function replaceEmotions(text){
+        text = text.replace(/:\)/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/smile.gif'>");
+        text = text.replace(/:D/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/bigsmile.gif'>>");
+        text = text.replace( /:\(/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/sadsmile.gif'>");
+        text = text.replace(/:'\(/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/crying.gif'>");
+        text = text.replace(/:p/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/tongueout.gif'>");
+        text = text.replace( /;\)/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/wink.gif'>");
+        text = text.replace(/<3/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/heart.gif'");
+        text = text.replace(/:\*/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/kiss.gif'>");
+        text = text.replace(/3\)/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/devil.gif'>");
+        text = text.replace(/8-\)/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/cool.gif'>");
+        text = text.replace(/:o/g, "<img src= '<?php echo $this->baseUrl(); ?>/emotions/surprised.gif'>");
+        return text;
+    }
+    function editReply(id) {
+        var editUrl = "<?php echo $this->baseUrl() . "/replies/edit/id/"; ?>" + id;
+
+        $("#reply_" + id).find("#edit-reply").css("visibility", "hidden");
+
+        $.ajax({
+            dataType: "json", url: editUrl, data: [],
+            success: function (data) {
+                var container = $("#reply_" + id);
+                var editReplyRow = $("<tr id='reply_edit_" + id + "'><td></td></tr>");
+                var form = $(data.form);
+
+                $(form).submit(
+                        function () {
+                            var formObj = $(this);
+                            var formURL = formObj.attr("action");
+                            var formData = new FormData(this);
+                            console.log(formData);
+
+                            $.ajax({
+                                dataType: "json",
+                                type: "POST",
+                                url: editUrl,
+                                data: formData,
+                                mimeType: "multipart/form-data",
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function (data) {
+                                    if (data.data.success == 1) {
+                                        $("#reply_" + id).find('.body_text').html(replaceEmotions(data.reply.body));
+                                        $("#reply_edit_" + id).remove();
+                                        $("#reply_" + id).find("#edit-reply").css("visibility", "visible");
+                                        if (data.reply.image) {
+                                            $("#reply_" + id).find(".th_img_div").html( "<img class='th_image' src='<?php echo $this->baseUrl(); ?>/reply_images/"+data.reply.image+"'></img>");
+                                           
+                                        }
+//                                        alert(data.data.message);
+
+                                    } else if (data.data.success == 0) {
+                                        alert(data.data.message);
+                                    }
+                                }
+                            });
+
+                            return false;
+
+                        }
+                );
+
+                $(editReplyRow).appendTo(container);
+                $(editReplyRow).children("td").append($(form));
+
+
+
+            }
+        });
+    }
+
+    function deleteReply(id) {
+        if (confirm("Are you sure?")) {
+            $.ajax({
+                dataType: "json",
+                url: "<?php echo $this->baseUrl() . "/replies/delete/id/" ?>" + id,
+                data: [],
+                success: function (data) {
+                    if (data.success == 1) {
+                        $("#reply_" + id).remove();
+                    } else {
+                        alert("Failure, " + data.message);
+                    }
+                }
+            });
+        }
+    }
+
+    $(document).ready(
+            function () {
+                var url = "<?php echo $this->baseUrl() . "/replies/add/id/" . $this->thread['id']; ?>";
+
+                $.ajax({
+                    dataType: "json", url: url, data: [],
+                    success: function (data) {
+
+                        var form = $(data.form);
+                        $(form).submit(
+                                function (e) {
+                                    var formObj = $(this);
+                                    var formURL = formObj.attr("action");
+                                    var formData = new FormData(this);
+                                    console.log(formData);
+
+                                    $.ajax({
+                                        dataType: "json",
+                                        type: "POST",
+                                        url: url,
+                                        data: formData,
+                                        mimeType: "multipart/form-data",
+                                        contentType: false,
+                                        cache: false,
+                                        processData: false,
+                                        success: function (data) {
+//                                                    console.log(data);
+                                            var loadedForm = data.form;
+                                            $(form).html($(loadedForm).html());
+
+                                            if (data.reply != undefined) {
+                                                var reply = data.reply;
+                                                var replyRow = $(".container1").children("table").first().clone();
+                                                $(replyRow).attr("id", "reply_" + reply.id);
+                                                $(replyRow).find(".body_text").html(replaceEmotions(reply.body));
+                                                $(replyRow).find(".date").text(reply.date);
+                                                $(replyRow).find(".profile_info").html(data.user.name + "<br/>" + data.user.country);
+                                                $(replyRow).find("#pic").attr("src", '<?php echo $this->baseUrl(); ?>/profile_images/' + data.user.image);
+                                                if (reply.image) {
+                                                    $(replyRow).find(".th_image").attr("src", '<?php echo $this->baseUrl(); ?>/reply_images/' + reply.image);
+                                                }
+                                                else {
+                                                    $(replyRow).find(".th_image").remove();
+                                                }
+                                                $(replyRow).find(".sig_img").attr("src", '<?php echo $this->baseUrl(); ?>/signture_images/' + data.user.signature);
+                                                $(replyRow).find('#edit-reply').click(function () {
+                                                    editReply(reply.id)
+                                                });
+                                                $(replyRow).find('#delete-reply').click(function () {
+                                                    deleteReply(reply.id)
+                                                });
+
+                                                $("#addReplayForm").before($(replyRow).show());
+                                            }
+                                        }
+                                    });
+                                    return false;
+                                }
+                        ).appendTo("#addReplayForm");
+                    }
+                });
+                addEmotions();
+            });
+
+
+</script>

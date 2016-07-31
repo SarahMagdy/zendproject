@@ -1,0 +1,72 @@
+  <head>  
+         <title>Users </title>
+    <style>
+
+            .fontSize
+            {
+                font-family: fantasy;
+                font-size: 30px;
+            }
+            
+    </style>    
+<div style="height:100px ;display:block;"> </div> 
+<div class="jumbotron col-sm-1-offset-1 "style="  width: 1100px;  margin :0 auto ; padding: 15px 15px 15px 15px; background-color:rgba(102,102,255,0.5);">
+
+  <?php
+    for ($i = 0; $i < count($this->users); $i++) {
+        ?>
+<?php if($this->adminId != $this->users[$i]['id'] && $this->users[$i]['is_confirmed'] ==1) {?>  
+<table   class="table table-hover">
+        <tr>
+            <td  class="info" width='150px' height='70px'>
+                <img <?php if($this->admin!=1) echo "style='margin-left: 30%;'"?>src="../profile_images/<?php echo $this->users[$i]['image']; ?>" class="img-circle"  width="140" height="60px"/>
+
+            </td>
+            <td class="danger" width='300x'>
+                <a style="margin-left: 25px; margin-top: 5px;" class="fontSize" href="<?php echo $this->baseUrl() ?>/users/userprofile/id/<?php echo $this->users[$i]['id']; ?>" class="text-danger"> <?php echo $this->users[$i]["name"]; ?></a>
+            </td>
+<?php if($this->admin==1) {?>  
+            <td class="success" width='150px'>    
+                <a style="margin-left: 35px; margin-top: 5px;" href="<?php echo $this->baseUrl() ?>/users/edit/id/<?php echo $this->users[$i]['id']; ?>/admin/-2" class="btn btn-success btn-lg" > Edit </a>
+
+            </td>
+ 
+            <td class="warning" width='150px' >    
+                <a style="margin-left: 25px; margin-top: 5px;" href="<?php echo $this->baseUrl() ?>/users/delete/id/<?php echo $this->users[$i]['id']; ?>/img/<?php echo $this->users[$i]['image']; ?>/sig/<?php echo $this->users[$i]['signature']; ?>" class="btn btn-danger btn-lg" > Delete </a>
+
+            </td>
+
+          
+           
+             <td class="active" width='170px' >    
+                <a style="margin-left: 25px; margin-top: 5px;" href="<?php echo $this->baseUrl() ?>/users/type/id/<?php echo $this->users[$i]['id']; ?>/mytype/<?php echo $this->users[$i]['is_admin']; ?>" class="btn btn-warning btn-lg" > <?php if ($this->users[$i]['is_admin'] == 0) echo "Make As Admin";
+    else {
+        echo "Remove As Admin";
+    } ?> </a>
+
+            </td>
+            
+            <?php if ($this->users[$i]['is_admin'] == 0 ){?>
+            
+              <td class="active" width='150px' >    
+                <a style="margin-left: 25px; margin-top: 5px;" href="<?php echo $this->baseUrl() ?>/users/ban/id/<?php echo $this->users[$i]['id']; ?>/ban/<?php echo $this->users[$i]['is_banned']; ?>" class="btn btn-info btn-lg" > <?php if ($this->users[$i]['is_banned'] == 0) echo "banned";
+    else {
+        echo "Unban";
+    } ?> </a>
+                  <?php }  else {?>
+                  <td class="active" width='139px' >    
+               
+
+            </td>
+            <?php }?>
+                  
+                  <?php } ?>
+
+            </td>
+            <?php }?>
+        </tr>
+        </table>
+        <?php
+    }
+    ?>
+</div>
